@@ -5,29 +5,33 @@ require_once "DBStorage.php";
 
 $storage = new DBStorage();
 
-if (isset($_FILES["obrazok"]) && $_FILES["obrazok"]["error"] == UPLOAD_ERR_OK) {
-    if(!empty($_POST["nazov"])) {
-        if(!empty($_POST["popis"])) {
-            $tmp_name = $_FILES["obrazok"]["tmp_name"];
-            $name = date("Y-m-d-H-i-s_") . $_FILES["obrazok"]["name"];
-            $path = "Imgs/$name";
-            move_uploaded_file($tmp_name, $path);
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_FILES["obrazok"]) && $_FILES["obrazok"]["error"] == UPLOAD_ERR_OK) {
+        if (!empty($_POST["nazov"])) {
+            if (!empty($_POST["popis"])) {
+                $tmp_name = $_FILES["obrazok"]["tmp_name"];
+                $name = date("Y-m-d-H-i-s_") . $_FILES["obrazok"]["name"];
+                $path = "Imgs/$name";
+                move_uploaded_file($tmp_name, $path);
 
-            $newPrispevok = new Prispevok();
-            $newPrispevok->setObrazok($path);
-            $newPrispevok->setNazov($_POST["nazov"]);
-            $newPrispevok->setPopis($_POST["popis"]);
-            $storage->Store($newPrispevok);
+                $newPrispevok = new Prispevok();
+                $newPrispevok->setObrazok($path);
+                $newPrispevok->setNazov($_POST["nazov"]);
+                $newPrispevok->setPopis($_POST["popis"]);
+                $storage->StorePrispevok($newPrispevok);
+
+                header('Location: /');
+                exit;
+            } else {
+                echo "Nezadal si popis";
+            }
         } else {
-            echo "Nezadal si popis";
+            echo "Nezadal si nazov";
         }
     } else {
-        echo "Nezadal si nazov";
+        echo "Nezadal si obrazok";
     }
-} else {
-    echo "Nezadal si obrazok";
 }
-
 
 ?>
 

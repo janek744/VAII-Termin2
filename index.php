@@ -1,7 +1,9 @@
 <?php
 
 require "Prispevok.php";
+require "pridat.php";
 
+global $storage;
 ?>
 
 <!DOCTYPE html>
@@ -38,6 +40,16 @@ require "Prispevok.php";
             </div>
         </div>
     </nav>
+
+    <div class="container">
+        <?php foreach ($storage->getVsetkyPrispevky() as $post) { ?>
+        <div class="prispevok">
+            <h1 class="nazov"> <?= $post->getNazov() ?> </h1>
+            <img src="<?= $post->getObrazok() ?>" class="card-img-top" alt="...">
+            <h7 class="popis"> <?= $post->getPopis() ?> </h7>
+        </div>
+        <?php }?>
+    </div>
 
     <footer class="py-3 my-4">
         <ul class="nav border-bottom">

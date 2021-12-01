@@ -40,3 +40,19 @@
     text-align: center;
     font-weight: bold;
 }
+
+.card-img-top {
+    max-width: 45%;
+    height: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.nazov {
+    text-align: center;
+}
+
+.prispevok {
+    margin-top: 15px;
+    border: #030326 solid 1px;
+}
