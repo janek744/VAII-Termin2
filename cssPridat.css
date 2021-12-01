@@ -1,0 +1,71 @@
+.navbar {
+    background-color: #030326;
+}
+
+.nav-link, .navbar-brand {
+    color: #e9eef1;
+    font-weight: bold;
+}
+.navbar-brand {
+    font-size: 30px;
+}
+
+.navbar-brand:hover, .nadpish1, .nadpish2, .text, .custom-toggler.navbar-toggler, .copy, .border-bottom {
+    color: #e9eef1;
+}
+
+.nav-link {
+    font-size: 25px;
+}
+
+.nav-link:hover {
+    color: #6b777f;
+}
+
+.navbar-nav {
+    left: 90%;
+    transform: translate(-75%, 0);
+    position: absolute;
+}
+
+.custom-toggler .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg%27%3E%3Cpath stroke='rgba(233,238,241, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+
+.nav {
+    justify-content: center;
+}
+
+.copy {
+    text-align: center;
+    font-weight: bold;
+}
+
+textarea[name="nazov"] {
+    width: 50%;
+    height: 55px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    resize: none;
+}
+
+textarea[name="popis"] {
+    width: 50%;
+    height: 150px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    resize: none;
+
+}
+
+textarea[name="popis"], textarea[name="nazov"], input[name="obrazok"], input[value="odosli"]{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
