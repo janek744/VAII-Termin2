@@ -1,5 +1,17 @@
 <?php
 
+require_once "DBStorage.php";
+
+$storage = new DBStorage();
+
+if (isset($_FILES["obrazok"]) && $_FILES["obrazok"]["error"] == UPLOAD_ERR_OK) {
+    $tmp_name = $_FILES["obrazok"]["tmp_name"];
+    $name = date("Y-m-d-H-i-s_") . $_FILES["obrazok"]["name"];
+    $path = "Imgs/$name";
+    move_uploaded_file($tmp_name, $path);
+}
+
+
 ?>
 
 
@@ -42,7 +54,7 @@
     <input type="file" name="obrazok"><br>
     <label for="aaa"></label>
     <textarea id="nazov" name="nazov" placeholder="Zadajte nazov prispevku"></textarea><br>
-    <label for="aaa"></label>
+    <label for="aaa"><label>
     <textarea id="popis" name="popis" placeholder="Zadate popis k prispevku"></textarea><br>
     <input type="submit" value="odosli">
 </form>
