@@ -4,6 +4,12 @@ require "Prispevok.php";
 require "pridat.php";
 
 global $storage;
+
+if(isset($_GET['delete'])) {
+    $storage->removePrispevok($_GET['delete']);
+    header('Location: /');
+    exit;
+}
 ?>
 
 <!DOCTYPE html>
@@ -14,8 +20,9 @@ global $storage;
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="cssIndex.css" type="text/css">
 </head>
 <body>
@@ -42,11 +49,11 @@ global $storage;
     </nav>
 
     <div class="container">
-        <?php foreach ($storage->getVsetkyPrispevky() as $post) { ?>
+        <?php foreach ($storage->getVsetkyPrispevky() as $prispevok) { ?>
         <div class="prispevok">
-            <h1 class="nazov"> <?= $post->getNazov() ?> </h1>
-            <img src="<?= $post->getObrazok() ?>" class="card-img-top" alt="...">
-            <h7 class="popis"> <?= $post->getPopis() ?> </h7>
+            <h2><?= $prispevok->getNazov()?><a href="?delete=<?= $prispevok->getId()?>">X</a></h2>
+            <img src="<?= $prispevok->getObrazok() ?>" class="card-img-top" alt="...">
+            <h7 class="popis"> <?= $prispevok->getPopis() ?> </h7>
         </div>
         <?php }?>
     </div>

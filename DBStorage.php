@@ -29,6 +29,12 @@ class DBStorage
         $st->execute([$clovek->getMeno(),$clovek->getHeslo()]);
     }
 
+    public function removePrispevok($id)
+    {
+        $st = $this->conn->prepare("DELETE FROM prispevky WHERE id = ?");
+        $st->execute([intval($id)]);
+    }
+
     /**
      *
      * @return Prispevok[]
