@@ -1,14 +1,31 @@
 <?php
 
+require_once "Prispevok.php";
 require_once "DBStorage.php";
 
 $storage = new DBStorage();
 
 if (isset($_FILES["obrazok"]) && $_FILES["obrazok"]["error"] == UPLOAD_ERR_OK) {
-    $tmp_name = $_FILES["obrazok"]["tmp_name"];
-    $name = date("Y-m-d-H-i-s_") . $_FILES["obrazok"]["name"];
-    $path = "Imgs/$name";
-    move_uploaded_file($tmp_name, $path);
+    if(!empty($_POST["nazov"])) {
+        if(!empty($_POST["popis"])) {
+            $tmp_name = $_FILES["obrazok"]["tmp_name"];
+            $name = date("Y-m-d-H-i-s_") . $_FILES["obrazok"]["name"];
+            $path = "Imgs/$name";
+            move_uploaded_file($tmp_name, $path);
+
+            $newPrispevok = new Prispevok();
+            $newPrispevok->setObrazok($path);
+            $newPrispevok->setNazov($_POST["nazov"]);
+            $newPrispevok->setPopis($_POST["popis"]);
+            $storage->Store($newPrispevok);
+        } else {
+            echo "Nezadal si popis";
+        }
+    } else {
+        echo "Nezadal si nazov";
+    }
+} else {
+    echo "Nezadal si obrazok";
 }
 
 
@@ -52,9 +69,7 @@ if (isset($_FILES["obrazok"]) && $_FILES["obrazok"]["error"] == UPLOAD_ERR_OK) {
 
 <form method="post" name="pridat" enctype="multipart/form-data">
     <input type="file" name="obrazok"><br>
-    <label for="aaa"></label>
     <textarea id="nazov" name="nazov" placeholder="Zadajte nazov prispevku"></textarea><br>
-    <label for="aaa"><label>
     <textarea id="popis" name="popis" placeholder="Zadate popis k prispevku"></textarea><br>
     <input type="submit" value="odosli">
 </form>
