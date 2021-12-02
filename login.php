@@ -8,19 +8,23 @@ $hlaska = "";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!empty($_POST["meno"])) {
-        if (preg_match('@^(?:://)?([^/]+)@', $_POST["meno"])) {
+        if (!preg_match("/[^A-Za-z0-9]/", $_POST["meno"])) {
             if (!empty($_POST["heslo"])) {
-                $newClovek = new Clovek();
-                $newClovek->setMeno($_POST["meno"]);
-                $newClovek->setHeslo($_POST["heslo"]);
-                $storage->skontrolujUzivatela($newClovek);
+                if (!preg_match("/[^A-Za-z0-9]/", $_POST["heslo"])) {
+                    $newClovek = new Clovek();
+                    $newClovek->setMeno($_POST["meno"]);
+                    $newClovek->setHeslo($_POST["heslo"]);
+                    $storage->skontrolujUzivatela($newClovek);
+                } else {
+                    $hlaska = "Boli zadane nepovolene znaky v hesle";
+                }
             } else {
                 $hlaska = "Nezadane heslo";
             }
         } else {
             $hlaska = "Boli zadane nepovolene znaky v mene";
         }
-    } else {
+    }else {
         $hlaska = "Nezadane meno";
     }
 }
