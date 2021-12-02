@@ -62,9 +62,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </nav>
 
 <form method="post" name="pridat" enctype="multipart/form-data">
-    <input type="text" id="pwd" name="meno"><br>
-    <input type="password" id="pwd" name="heslo"><br>
-    <input type="submit" value="prihlasit">
+    <div class="prihlasenie">
+        <input type="text" id="pwd" name="meno"><br>
+        <input type="password" id="pwd" name="heslo"><br><br>
+        <input type="submit" value="prihlasit">
+    </div>
 </form>
 
 <footer class="py-3 my-4">
