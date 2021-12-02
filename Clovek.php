@@ -5,6 +5,23 @@ class Clovek
     private $id;
     private $meno;
     private $heslo;
+    private $prihlaseny = false;
+
+    /**
+     * @return bool
+     */
+    public function getPrihlaseny(): bool
+    {
+        return $this->prihlaseny;
+    }
+
+    /**
+     * @param mixed $prihlaseny
+     */
+    public function setPrihlaseny($prihlaseny): void
+    {
+        $this->prihlaseny = $prihlaseny;
+    }
 
     /**
      * @return mixed

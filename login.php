@@ -1,8 +1,30 @@
+<?php
 
+require_once "Clovek.php";
+require_once "Sklad.php";
 
+global $storage;
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (!empty($_POST["meno"])) {
+        if (preg_match('@^(?:://)?([^/]+)@', $_POST["meno"])) {
+            if (!empty($_POST["heslo"])) {
+                $newClovek = new Clovek();
+                $newClovek->setMeno($_POST["meno"]);
+                $newClovek->setHeslo($_POST["heslo"]);
+                $storage->skontrolujUzivatela($newClovek);
+            } else {
+                echo "Nezadane heslo";
+            }
+        } else {
+            echo "Boli zadane nepovolene znaky v mene";
+        }
+    } else {
+        echo "Nezadane meno";
+    }
+}
 
-
+?>
 
 <!DOCTYPE html>
 <html lang="zxx">
@@ -32,22 +54,18 @@
                     <a class="nav-link" href="pridat.php">Pridat</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="login.php">Prihlasenie</a>
+                    <a class="nav-link" href="login.php">Prihlasenie</a>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
 
-<div class="form-floating">
-    <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
-    <label for="floatingInput">Meno</label>
-</div>
-<div class="form-floating">
-    <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-    <label for="floatingPassword">Heslo</label>
-</div>
-<button class="w-100 btn btn-lg btn-primary" type="submit" >Prihlasit</button>
+<form method="post" name="pridat" enctype="multipart/form-data">
+    <input type="text" id="pwd" name="meno"><br>
+    <input type="password" id="pwd" name="heslo"><br>
+    <input type="submit" value="prihlasit">
+</form>
 
 <footer class="py-3 my-4">
     <ul class="nav border-bottom">

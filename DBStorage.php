@@ -35,6 +35,28 @@ class DBStorage
         $st->execute([intval($id)]);
     }
 
+    public function skontrolujUzivatela(Clovek $clovek)
+    {
+        $name = $clovek->getMeno();
+        $stmt = $this->conn->prepare('SELECT * FROM ludia WHERE meno = ?');
+        $stmt->execute([$clovek->getMeno()]);
+        $result = $stmt->rowCount();
+
+        if($result > 0) {
+            $stmt = $this->conn->prepare('SELECT * FROM ludia WHERE meno = ?');
+            $stmt->execute([$clovek->getHeslo()]);
+            if($clovek->getHeslo() == $stmt->queryString) {
+                echo "Zadane spravne heslo";
+                $clovek->setPrihlaseny(true);
+            } else {
+                echo "Zadane zle heslo";
+            }
+        } else {
+            echo "Uzivatel bol zaregistrovany";
+            $this->StoreClovek($clovek);
+        }
+    }
+
     /**
      *
      * @return Prispevok[]
@@ -52,6 +74,6 @@ class DBStorage
     public function getVsetkychLudi() {
         $st = $this->conn->prepare("SELECT * FROM ludia");
         $st->execute();
-        return $st->fetchAll(PDO::FETCH_CLASS, Prispevok::class);
+        return $st->fetchAll(PDO::FETCH_CLASS, Clovek::class);
     }
 }

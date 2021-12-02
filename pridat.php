@@ -1,9 +1,10 @@
 <?php
 
 require_once "Prispevok.php";
-require_once "DBStorage.php";
+require_once "Sklad.php";
+//require_once "DBStorage.php";
 
-$storage = new DBStorage();
+global $storage;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_FILES["obrazok"]) && $_FILES["obrazok"]["error"] == UPLOAD_ERR_OK) {
@@ -23,13 +24,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 header('Location: /');
                 exit;
             } else {
-                echo "Nezadal si popis";
+                echo "Nebol zadany popis";
             }
         } else {
-            echo "Nezadal si nazov";
+            echo "Nebol zadany nazov";
         }
     } else {
-        echo "Nezadal si obrazok";
+        echo "Nebol zadany obrazok";
     }
 }
 
@@ -61,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <a class="nav-link" href="index.php">Prispevky</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="pridat.php">Pridat</a>
+                    <a class="nav-link" href="pridat.php">Pridat</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="login.php">Prihlasenie</a>

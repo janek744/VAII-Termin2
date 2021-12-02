@@ -1,7 +1,7 @@
 <?php
 
-require "Prispevok.php";
-require "pridat.php";
+require_once "Prispevok.php";
+require_once "Sklad.php";
 
 global $storage;
 
@@ -35,7 +35,7 @@ if(isset($_GET['delete'])) {
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav mb-3 mb-md-0">
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="index.php">Prispevky</a>
+                        <a class="nav-link" href="index.php">Prispevky</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="pridat.php">Pridat</a>
@@ -49,13 +49,18 @@ if(isset($_GET['delete'])) {
     </nav>
 
     <div class="container">
-        <?php foreach ($storage->getVsetkyPrispevky() as $prispevok) { ?>
-        <div class="prispevok">
-            <h2><?= $prispevok->getNazov()?><a href="?delete=<?= $prispevok->getId()?>">X</a></h2>
-            <img src="<?= $prispevok->getObrazok() ?>" class="card-img-top" alt="...">
-            <h7 class="popis"> <?= $prispevok->getPopis() ?> </h7>
+        <div class="posty">
+            <?php foreach ($storage->getVsetkyPrispevky() as $prispevok) { ?>
+            <div class="prispevok">
+                <h2 class="nazov"><?= $prispevok->getNazov()?><a class="x" href="?delete=<?= $prispevok->getId()?>">X</a></h2>
+                <img src="<?= $prispevok->getObrazok() ?>" class="card-img-top" alt="...">
+                    <div class="col" style="background:white">
+                        <h6 class="popis"> <?= $prispevok->getPopis() ?> </h6>
+                    </div>
+
+            </div>
+                <?php }?>
         </div>
-        <?php }?>
     </div>
 
     <footer class="py-3 my-4">
