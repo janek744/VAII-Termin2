@@ -68,3 +68,9 @@ textarea[name="popis"], textarea[name="nazov"], input[name="obrazok"], input[val
     margin-left: auto;
     margin-right: auto;
 }
+
+.odstavec {
+    color: red;
+    font-weight: bold;
+    text-align: center;
+ }

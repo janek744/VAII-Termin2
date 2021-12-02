@@ -4,6 +4,7 @@ require_once "Clovek.php";
 require_once "Sklad.php";
 
 global $storage;
+$hlaska = "";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!empty($_POST["meno"])) {
@@ -14,13 +15,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $newClovek->setHeslo($_POST["heslo"]);
                 $storage->skontrolujUzivatela($newClovek);
             } else {
-                echo "Nezadane heslo";
+                $hlaska = "Nezadane heslo";
             }
         } else {
-            echo "Boli zadane nepovolene znaky v mene";
+            $hlaska = "Boli zadane nepovolene znaky v mene";
         }
     } else {
-        echo "Nezadane meno";
+        $hlaska = "Nezadane meno";
     }
 }
 
@@ -68,6 +69,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input type="submit" value="prihlasit">
     </div>
 </form>
+
+<p class="odstavec"><?php echo $hlaska;?></p>
+<p class="odstavec"><?php echo $storage->getHlaska();?></p>
+
 
 <footer class="py-3 my-4">
     <ul class="nav border-bottom">

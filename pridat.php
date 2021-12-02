@@ -2,9 +2,9 @@
 
 require_once "Prispevok.php";
 require_once "Sklad.php";
-//require_once "DBStorage.php";
 
 global $storage;
+$hlaska = "";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_FILES["obrazok"]) && $_FILES["obrazok"]["error"] == UPLOAD_ERR_OK) {
@@ -20,17 +20,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $newPrispevok->setNazov($_POST["nazov"]);
                 $newPrispevok->setPopis($_POST["popis"]);
                 $storage->StorePrispevok($newPrispevok);
-
-                header('Location: /');
-                exit;
             } else {
-                echo "Nebol zadany popis";
+                $hlaska = "Nebol zadany popis";
             }
         } else {
-            echo "Nebol zadany nazov";
+            $hlaska = "Nebol zadany nazov";
         }
     } else {
-        echo "Nebol zadany obrazok";
+        $hlaska = "Nebol zadany obrazok";
     }
 }
 
@@ -78,6 +75,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <textarea id="popis" name="popis" placeholder="Zadate popis k prispevku"></textarea><br>
     <input type="submit" value="odosli">
 </form>
+
+<p class="odstavec"><?php echo $hlaska;?></p>
 
 <footer class="py-3 my-4">
     <ul class="nav border-bottom">

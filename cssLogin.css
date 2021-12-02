@@ -49,3 +49,9 @@
 .meno, .heslo {
     margin-top: 10px;
 }
+
+.odstavec {
+    color: red;
+    font-weight: bold;
+    text-align: center;
+}

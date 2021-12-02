@@ -6,6 +6,7 @@ class DBStorage
      * @var PDO
      */
     private $conn;
+    private $hlaska = "";
 
     public function __construct()
     {
@@ -37,22 +38,24 @@ class DBStorage
 
     public function skontrolujUzivatela(Clovek $clovek)
     {
-        $name = $clovek->getMeno();
+
         $stmt = $this->conn->prepare('SELECT * FROM ludia WHERE meno = ?');
         $stmt->execute([$clovek->getMeno()]);
         $result = $stmt->rowCount();
 
         if($result > 0) {
-            $stmt = $this->conn->prepare('SELECT * FROM ludia WHERE meno = ?');
+            $stmt = $this->conn->prepare('SELECT * FROM ludia WHERE heslo = ?');
             $stmt->execute([$clovek->getHeslo()]);
-            if($clovek->getHeslo() == $stmt->queryString) {
-                echo "Zadane spravne heslo";
+            $result = $stmt->rowCount();
+
+            if($result > 0) {
+                $this->hlaska = "Uzivatel bol prihlaseny";
                 $clovek->setPrihlaseny(true);
             } else {
-                echo "Zadane zle heslo";
+                $this->hlaska = "Zadane zle heslo";
             }
         } else {
-            echo "Uzivatel bol zaregistrovany";
+            $this->hlaska = "Uzivatel bol zaregistrovany";
             $this->StoreClovek($clovek);
         }
     }
@@ -75,5 +78,13 @@ class DBStorage
         $st = $this->conn->prepare("SELECT * FROM ludia");
         $st->execute();
         return $st->fetchAll(PDO::FETCH_CLASS, Clovek::class);
+    }
+
+    /**
+     * @return string
+     */
+    public function getHlaska(): string
+    {
+        return $this->hlaska;
     }
 }
